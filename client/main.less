@@ -1,1 +1,22 @@
 @import '../node_modules/bootstrap/less/bootstrap.less';
+
+.clickable-row {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.table-filters {
+    margin-bottom: 15px;
+}
+
+.stream-table tr {
+    opacity: 1;
+}
+.stream-table tr.ng-enter {
+    transition: 1s;
+    opacity: 0;
+}
+.stream-table tr.ng-enter-active {
+    opacity: 1;
+}

@@ -3,8 +3,12 @@
 import './main.less';
 
 import angular from 'angular';
-import ngRouter from 'angular-animate';
+import ngAnimate from 'angular-animate';
 
-console.log('app!');
+import twitchService from './services/twitchService';
+import TwitchCtrl from './controllers/TwitchCtrl';
 
-export default angular.module('app', [ngRouter]).name;
+export default angular.module('app', [ngAnimate])
+    .service('twitchService', twitchService)
+    .controller('TwitchCtrl', TwitchCtrl)
+    .name;

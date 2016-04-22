@@ -1,14 +1,54 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="app">
 <head>
-    <base href="/">
-    <meta charset="UTF-8">
-    <title>Twitch app</title>
-    <link rel="stylesheet" href="/main.css">
+  <base href="/">
+  <meta charset="UTF-8">
+  <title>Twitch app</title>
+  <link rel="stylesheet" href="/main.css">
 </head>
 <body>
+    <main class="container" ng-app="app" ng-controller="TwitchCtrl as twitch">
+      <header>
+        <h1 class="page-heading">{{twitch.title}}</h1>
+      </header>
+      <section class="table-filters form-inline">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="input text to filter results" ng-model="twitch.search.$" />
+        </div>
+        <div class="form-group">
+          <label class="radio-inline">
+            &nbsp;
+            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="" ng-model="twitch.filterRadio.status"> All
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Online" ng-model="twitch.filterRadio.status" checked> Online
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="Offline" ng-model="twitch.filterRadio.status"> Offline&nbsp;
+          </label>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-default" ng-click="twitch.activate()">Reload</button>
+        </div>
+      </section>
+      <table class="table table-responsive table-hover stream-table">
+        <tr>
+          <th>Channel</th>
+          <th>Status</th>
+          <th>Stream name</th>
+        </tr>
+        <tr
+            ng-repeat="channel in twitch.results | filter: twitch.search | filter: twitch.filterRadio"
+            ng-class="{'Online': 'success clickable-row', 'Offline': 'clickable-row', 'Account deleted': 'danger'}[channel.status]"
+            ng-click="twitch.openChannel(channel.url)"
+        >
+          <td>{{channel.name}}</td>
+          <td>{{channel.status}}</td>
+          <td>{{channel.streamName}}</td>
+        </tr>
+      </table>
+    </main>
 
-
-    <script src='/build.js'></script>
+  <script src='/build.js'></script>
 </body>
 </html>
